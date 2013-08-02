@@ -17,6 +17,7 @@
 // ============================================================================
 package org.ascorelib.math
 {
+  // http://en.wikipedia.org/wiki/Smoothstep#Variations
   public function smootherstep(x:Number, l:Number = 0, r:Number = 1):Number
   {
     x = (x - l) / (r - l);

@@ -69,6 +69,9 @@ package org.ascorelib.images
       _bitmap = bitmap;
     }
     
+    // ========================================================================
+    //  Methods
+    // ------------------------------------------------------------------------
     override public function toString():String
     {
       return "[Event type=" + type

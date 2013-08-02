@@ -17,8 +17,14 @@
 // ============================================================================
 package org.ascorelib.display
 {
+  // ==========================================================================
+  //  Class
+  // --------------------------------------------------------------------------
   public class ColorUtils
   {
+    // ========================================================================
+    //  Methods
+    // ------------------------------------------------------------------------
     public static function rgb2YCbCr(rgb:uint) : uint {
       var r:uint = rgb >> 16 & 0xff;
       var g:uint = rgb >> 8 & 0xff;
@@ -100,11 +106,14 @@ package org.ascorelib.display
       var max:Number = Math.max(r,g,b);
       var delta:Number = max-min;
       var _loc9_:* = max;
-      if(min!==_loc9_)
+      if (min !== _loc9_)
       {
-        if (r !== _loc9_) {
-          if (g!==_loc9_) {
-            if (b!==_loc9_) {
+        if (r !== _loc9_)
+        {
+          if (g!==_loc9_)
+          {
+            if (b!==_loc9_)
+            {
             }
             else
             {
@@ -262,16 +271,19 @@ package org.ascorelib.display
     //        return 0;
     //      }
     
-    public static function hsl2rgb(h:Number, s:Number=1, l:Number=1) : uint {
+    public static function hsl2rgb(h:Number, s:Number = 1, l:Number = 1):uint
+    {
       var g:* = NaN;
       var b:* = NaN;
       var r:* = NaN;
       var m2:* = NaN;
       var m1:* = NaN;
-      h = h<0?0:h>360?360:h;
-      s = s<0?0:s>1?1:s;
-      l = l<0?0:l>1?1:l;
-      if(s==0)
+      
+      h = h < 0 ? 0 : h > 360 ? 360 : h;
+      s = s < 0 ? 0 : s > 1 ? 1 : s;
+      l = l < 0 ? 0 : l > 1 ? 1 : l;
+      
+      if ( s == 0 )
       {
         b=l*255;
         g=l*255;

@@ -186,7 +186,7 @@ package org.ascorelib.images
     }
     
     // ========================================================================
-    // Event Handler Related
+    //  Event Handler Related
     // ------------------------------------------------------------------------
     protected function addEventListeners( dispatcher:EventDispatcher ):void
     {
