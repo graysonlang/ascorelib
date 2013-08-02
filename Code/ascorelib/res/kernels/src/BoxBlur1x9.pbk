@@ -1,0 +1,39 @@
+<languageVersion: 1.0;>
+kernel BoxBlur1x9
+<namespace:""; vendor:""; version:1; description:"";>
+{
+  parameter float2 size<parameterType:"inputSize"; inputSizeName:"src"; >;
+
+  input image4 src;
+  output float4 dst;
+
+  void evaluatePixel()
+  {
+    float2 pos = outCoord();
+    
+    float4 total = float4(0.0, 0.0, 0.0, 0.0);
+    
+    float h = size.y - 1.0;
+    
+    float ym4 = max( pos.y - 4.0, 0.0 );
+    float ym3 = max( pos.y - 3.0, 0.0 );
+    float ym2 = max( pos.y - 2.0, 0.0 );
+    float ym1 = max( pos.y - 1.0, 0.0 );
+    float yp1 = min( pos.y + 1.0, h );
+    float yp2 = min( pos.y + 2.0, h );
+    float yp3 = min( pos.y + 3.0, h );
+    float yp4 = min( pos.y + 4.0, h );
+    
+    total += sampleNearest( src, float2( pos.x, ym4 ) );
+    total += sampleNearest( src, float2( pos.x, ym3 ) );
+    total += sampleNearest( src, float2( pos.x, ym2 ) );
+    total += sampleNearest( src, float2( pos.x, ym1 ) );
+    total += sampleNearest( src, pos );
+    total += sampleNearest( src, float2( pos.x, yp1 ) );
+    total += sampleNearest( src, float2( pos.x, yp2 ) );
+    total += sampleNearest( src, float2( pos.x, yp3 ) );
+    total += sampleNearest( src, float2( pos.x, yp4 ) );
+
+    dst = total / 9.0;
+  }
+}

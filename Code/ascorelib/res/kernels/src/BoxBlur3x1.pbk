@@ -1,0 +1,28 @@
+<languageVersion: 1.0;>
+kernel BoxBlur3x1
+<namespace:""; vendor:""; version:1; description:"";>
+{
+  parameter float2 size<parameterType:"inputSize"; inputSizeName:"src"; >;
+
+  input image4 src;
+  output float4 dst;
+
+  void evaluatePixel()
+  {
+    float2 pos = outCoord();
+    
+    float4 total = float4(0.0, 0.0, 0.0, 0.0);
+    
+    float x = pos.x;
+    float y = pos.y;
+    
+    float xm1 = max( x - 1.0, 0.0 );
+    float xp1 = min( x + 1.0, size.x - 1.0 );
+    
+    total += sampleNearest( src, float2( xm1, y ) );
+    total += sampleNearest( src, pos );
+    total += sampleNearest( src, float2( xp1, y ) );
+
+    dst = total / 3.0;
+  }
+}

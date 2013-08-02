@@ -1,0 +1,53 @@
+<languageVersion: 1.0;>
+kernel Gaussian29x1
+<namespace:""; vendor:""; version:1; description:"";>
+{
+  parameter float2 size<parameterType:"inputSize"; inputSizeName:"src"; >;
+  parameter float4 weights;
+  parameter float4 weights2;
+  parameter float4 weights3;
+  parameter float4 weights4;
+
+  input image4 src;
+  output float4 dst;
+
+  void evaluatePixel()
+  {
+    float2 pos = outCoord();
+    float x = pos.x;
+    float y = pos.y;
+    float w = size.x - 1.0;
+
+    float4 total = sampleNearest(src, pos) * weights[0];
+    total += (sampleNearest(src, float2(max(x - 1.0, 0.0), y)) +
+    		  sampleNearest(src, float2(min(x + 1.0, w), y))) * weights[1];
+    total += (sampleNearest(src, float2(max(x - 2.0, 0.0), y)) +
+    		  sampleNearest(src, float2(min(x + 2.0, w), y))) * weights[2];
+    total += (sampleNearest(src, float2(max(x - 3.0, 0.0), y)) +
+    		  sampleNearest(src, float2(min(x + 3.0, w), y))) * weights[3];
+    total += (sampleNearest(src, float2(max(x - 4.0, 0.0), y)) +
+    		  sampleNearest(src, float2(min(x + 4.0, w), y))) * weights2[0];
+    total += (sampleNearest(src, float2(max(x - 5.0, 0.0), y)) +
+    		  sampleNearest(src, float2(min(x + 5.0, w), y))) * weights2[1];
+    total += (sampleNearest(src, float2(max(x - 6.0, 0.0), y)) +
+    		  sampleNearest(src, float2(min(x + 6.0, w), y))) * weights2[2];
+    total += (sampleNearest(src, float2(max(x - 7.0, 0.0), y)) +
+    		  sampleNearest(src, float2(min(x + 7.0, w), y))) * weights2[3];
+    total += (sampleNearest(src, float2(max(x - 8.0, 0.0), y)) +
+    		  sampleNearest(src, float2(min(x + 8.0, w), y))) * weights3[0];
+    total += (sampleNearest(src, float2(max(x - 9.0, 0.0), y)) +
+    		  sampleNearest(src, float2(min(x + 9.0, w), y))) * weights3[1];
+    total += (sampleNearest(src, float2(max(x - 10.0, 0.0), y)) +
+    		  sampleNearest(src, float2(min(x + 10.0, w), y))) * weights3[2];
+    total += (sampleNearest(src, float2(max(x - 11.0, 0.0), y)) +
+    		  sampleNearest(src, float2(min(x + 11.0, w), y))) * weights3[3];
+    total += (sampleNearest(src, float2(max(x - 12.0, 0.0), y)) +
+    		  sampleNearest(src, float2(min(x + 12.0, w), y))) * weights4[0];
+    total += (sampleNearest(src, float2(max(x - 13.0, 0.0), y)) +
+    		  sampleNearest(src, float2(min(x + 13.0, w), y))) * weights4[1];
+    total += (sampleNearest(src, float2(max(x - 14.0, 0.0), y)) +
+    		  sampleNearest(src, float2(min(x + 14.0, w), y))) * weights4[2];
+    
+    dst = total;
+  }
+}

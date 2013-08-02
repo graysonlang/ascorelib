@@ -1,0 +1,37 @@
+<languageVersion: 1.0;>
+kernel BoxBlur7x1
+<namespace:""; vendor:""; version:1; description:"";>
+{
+  parameter float2 size<parameterType:"inputSize"; inputSizeName:"src"; >;
+
+  input image4 src;
+  output float4 dst;
+
+  void evaluatePixel()
+  {
+    float2 pos = outCoord();
+    
+    float4 total = float4(0.0, 0.0, 0.0, 0.0);
+    
+    float x = pos.x;
+    float y = pos.y;
+    float w = size.x - 1.0;
+    
+    float xm3 = max( x - 3.0, 0.0 );
+    float xm2 = max( x - 2.0, 0.0 );
+    float xm1 = max( x - 1.0, 0.0 );
+    float xp1 = min( x + 1.0, w );
+    float xp2 = min( x + 2.0, w );
+    float xp3 = min( x + 3.0, w );
+    
+    total += sampleNearest( src, float2( xm3, y ) );
+    total += sampleNearest( src, float2( xm2, y ) );
+    total += sampleNearest( src, float2( xm1, y ) );
+    total += sampleNearest( src, pos );
+    total += sampleNearest( src, float2( xp1, y ) );
+    total += sampleNearest( src, float2( xp2, y ) );
+    total += sampleNearest( src, float2( xp3, y ) );
+
+    dst = total / 7.0;
+  }
+}

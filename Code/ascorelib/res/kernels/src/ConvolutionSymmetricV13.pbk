@@ -1,0 +1,37 @@
+<languageVersion: 1.0;>
+kernel Gaussian1x13
+<namespace:""; vendor:""; version:1; description:"";>
+{
+  parameter float2 size<parameterType:"inputSize"; inputSizeName:"src";>;
+  parameter float4 weights;
+  parameter float4 weights2;
+
+
+
+  input image4 src;
+  output float4 dst;
+
+  void evaluatePixel()
+  {
+    float2 pos = outCoord();
+    float x = pos.x;
+    float y = pos.y;
+    float h = size.y - 1.0;
+
+    float4 total = sampleNearest(src, pos) * weights[0];
+	total += (sampleNearest(src, float2(x, max(y - 1.0, 0.0))) +
+			  sampleNearest(src, float2(x, min(y + 1.0, h)))) * weights[1];
+	total += (sampleNearest(src, float2(x, max(y - 2.0, 0.0))) +
+			  sampleNearest(src, float2(x, min(y + 2.0, h)))) * weights[2];
+	total += (sampleNearest(src, float2(x, max(y - 3.0, 0.0))) +
+			  sampleNearest(src, float2(x, min(y + 3.0, h)))) * weights[3];
+	total += (sampleNearest(src, float2(x, max(y - 4.0, 0.0))) +
+			  sampleNearest(src, float2(x, min(y + 4.0, h)))) * weights2[0];
+	total += (sampleNearest(src, float2(x, max(y - 5.0, 0.0))) +
+			  sampleNearest(src, float2(x, min(y + 5.0, h)))) * weights2[1];
+	total += (sampleNearest(src, float2(x, max(y - 6.0, 0.0))) +
+			  sampleNearest(src, float2(x, min(y + 6.0, h)))) * weights2[2];
+
+    dst = total;
+  }
+}
