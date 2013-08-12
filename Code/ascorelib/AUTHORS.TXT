@@ -1,0 +1,4 @@
+Authors of ascorelib
+(listed by first contribution)
+
+Grayson Lang <graysonlang@gmail.com>

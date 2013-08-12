@@ -173,7 +173,7 @@ package org.ascorelib.images
     
     public static function magicBlur(src:BitmapData, dst:BitmapData, scale:Number):void
     {
-      var kernel:Vector.<Number> = createNormalizedHalfMagicKernel(scale);
+      var kernel:Vector.<Number> = createNormalizedHalf1DMagicKernel(scale);
       convolve2DSymmetric(src, dst, kernel);
     }
     
@@ -352,40 +352,13 @@ package org.ascorelib.images
       return kernel;
     }
     
-    public static function createNormalizedHalfMagicKernel(sigma:Number):Vector.<Number>
-    {
-      var x:int;
-      
-      const sigmaSquared:Number = sigma * sigma;
-      const denom1:Number = 2 * sigmaSquared;
-      const scale:Number = 1 / Math.sqrt(2 * Math.PI) * sigma;
-      
-      const kernelHalfWidth:uint = Math.round(3 * sigma);
-      const kernelSize:uint = kernelHalfWidth + 1;  
-      
-      var kernel:Vector.<Number> = new Vector.<Number>(kernelSize, true);
-      kernel[0] = scale;
-      var sum:Number = scale;
-      for (x = 1; x <= kernelHalfWidth; ++x) {
-        var value:Number = scale * Math.exp(-(x * x) / denom1);
-        sum += 2 * value;
-        kernel[x] = value;
-      }
-      
-      for (x = 0; x < kernelSize; ++x) {
-        kernel[x] /= sum;
-      }
-      
-      return kernel;
-    }
-    
     public static function createNormalizedHalf1DGaussianKernel( sigma:Number ):Vector.<Number>
     {
       var x:int;
       
       const sigmaSquared:Number = sigma * sigma;
       const denom1:Number = 2 * sigmaSquared;
-      const scale:Number = 1 / Math.sqrt(2 * Math.PI) * sigma;
+      const scale:Number = 1 / (Math.sqrt(2 * Math.PI) * sigma);
       
       const kernelHalfWidth:uint = Math.round(3 * sigma);
       const kernelSize:uint = kernelHalfWidth + 1;  
@@ -406,6 +379,47 @@ package org.ascorelib.images
       return kernel;
     }
     
+    public static function createNormalizedHalf1DMagicKernel(sigma:Number):Vector.<Number>
+    {
+      var x:int;
+      
+      const threeSigma:Number = 3 * sigma;
+      const kernelHalfWidth:uint = Math.round(threeSigma);
+      const kernelSize:uint = kernelHalfWidth + 1;
+      var kernel:Vector.<Number> = new Vector.<Number>(kernelSize, true);
+      
+      const invSigma:Number = 1 / sigma;
+      const c1:Number = 1 / (8 * sigma);
+      const c2:Number = 1 / (16 * sigma);
+      
+      const scale:Number = 3 * c1;
+      kernel[0] = scale;
+      var sum:Number = scale;
+      for (x = 1; x <= kernelHalfWidth; ++x) {
+        
+        var value:Number = x * invSigma;
+        
+        if (x <= sigma) {
+          value = scale - value * value * c1;
+        } else if (x < threeSigma) {
+          value = value - 3
+          value *= value;
+          value *= c2;
+        } else {
+          value = 0;
+        }
+        
+        sum += 2 * value;
+        kernel[x] = value;
+      }
+      
+      for (x = 0; x < kernelSize; ++x) {
+        kernel[x] /= sum;
+      }
+      
+      return kernel;
+    }
+
     public static function blur(src:BitmapData, dst:BitmapData, sigma:Number):void
     {
       if (sigma < 1) {

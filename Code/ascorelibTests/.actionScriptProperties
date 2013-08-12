@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<actionScriptProperties analytics="false" mainApplicationPath="ascorelibTests.as" projectUUID="506de07c-dc1a-4a35-887b-0ef9fd8a9e01" version="11">
+<actionScriptProperties analytics="false" mainApplicationPath="TestIntersectionLinePlane.as" projectUUID="506de07c-dc1a-4a35-887b-0ef9fd8a9e01" version="11">
   <compiler additionalCompilerArguments="-locale en_US -use-network=false" advancedTelemetry="false" autoRSLOrdering="true" copyDependentFiles="true" fteInMXComponents="false" generateAccessible="false" htmlExpressInstall="false" htmlGenerate="false" htmlHistoryManagement="false" htmlPlayerVersionCheck="false" includeNetmonSwc="false" outputFolderPath="bin" removeUnusedRSL="true" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="false" useDebugRSLSwfs="true" useFlashSDK="true" verifyDigests="true" warn="true">
     <compilerSourcePath/>
     <libraryPath defaultLinkType="0">
@@ -30,12 +30,13 @@
       </libraryPathEntry>
       <libraryPathEntry kind="3" linkType="1" path="/ascorelib/bin/ascorelib.swc" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="1" path="/minimalcomps/bin/minimalcomps.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="/adobelib/bin/adobelib.swc" useDefaultLinkType="false"/>
     </libraryPath>
     <sourceAttachmentPath/>
   </compiler>
   <applications>
-    <application path="ColorDifference.as"/>
-    <application path="TestMSER.as"/>
+    <application path="TestIntersectionLinePlane.as"/>
+    <application path="TestDilate.as"/>
   </applications>
   <modules/>
   <workers/>

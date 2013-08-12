@@ -20,8 +20,6 @@ package org.ascorelib.images
   // ==========================================================================
   //  Imports
   // --------------------------------------------------------------------------
-  import com.adobe.images.PNGEncoder;
-  
   import flash.display.BitmapData;
   import flash.net.FileReference;
   import flash.utils.ByteArray;
@@ -50,7 +48,7 @@ package org.ascorelib.images
     //  Methods
     // ------------------------------------------------------------------------
     public static function save(bitmapData:BitmapData, filename:String="image.png") : void {
-      var bytes:ByteArray = PNGEncoder.encode(bitmapData);
+      var bytes:ByteArray = PNGUtils.encode(bitmapData);
       FileSaver.saveBinary(bytes, filename);
     }
   }
