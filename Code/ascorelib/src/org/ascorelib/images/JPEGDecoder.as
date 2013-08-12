@@ -1,6 +1,6 @@
 // ============================================================================
 //
-//  Copyright 2013 The ascorelib Authors. All Rights Reserved.
+//  Portions copyright 2013 The ascorelib Authors. All Rights Reserved.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -16,27 +16,49 @@
 //
 // ============================================================================
 //
-//	Based upon NanoJPEG: http://keyj.emphy.de/nanojpeg/
+//	Port to ActionScript based upon NanoJPEG: http://keyj.emphy.de/nanojpeg/
+//  mostly for tinkering and demonstration purposes.
+//
+//  [Original copyright notice follows]
+// ----------------------------------------------------------------------------
+//
+// NanoJPEG -- KeyJ's Tiny Baseline JPEG Decoder
+// version 1.3 (2012-03-05)
+// by Martin J. Fiedler <martin.fiedler@gmx.net>
+//
+// This software is published under the terms of KeyJ's Research License,
+// version 0.2. Usage of this software is subject to the following conditions:
+// 0. There's no warranty whatsoever. The author(s) of this software can not
+//    be held liable for any damages that occur when using this software.
+// 1. This software may be used freely for both non-commercial and commercial
+//    purposes.
+// 2. This software may be redistributed freely as long as no fees are charged
+//    for the distribution and this license information is included.
+// 3. This software may be modified freely except for this license information,
+//    which must not be changed in any way.
+// 4. If anything other than configuration, indentation or comments have been
+//    altered in the code, the original author(s) must receive a copy of the
+//    modified code.
 //
 // ============================================================================
 package org.ascorelib.images
 {
-  // ===========================================================================
+  // ==========================================================================
   //	Imports
-  // ---------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   import flash.utils.ByteArray;
   
-  // ===========================================================================
+  // ==========================================================================
   //	Class
-  // ---------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   /**
    * Note: decodes baseline JPEG only.
    */
   public class JPEGDecoder
   {
-    // ======================================================================
+    // ========================================================================
     //	Constants
-    // ----------------------------------------------------------------------
+    // ------------------------------------------------------------------------
     // DecodeResult
     public static const DECODE_RESULT_OK:uint					= 0;	// decoding successful
     public static const DECODE_RESULT_NOT_A_JPEG:uint			= 1;	// not a JPEG file
@@ -58,9 +80,9 @@ package org.ascorelib.images
     private var _context:JPEGDecoderContext;
     private var _zz:ByteArray; // char[64]
     
-    // ======================================================================
+    // ========================================================================
     //	Methods
-    // ----------------------------------------------------------------------
+    // ------------------------------------------------------------------------
     public function decode( data:ByteArray ):ByteArray
     {
       var result:ByteArray = new ByteArray();
